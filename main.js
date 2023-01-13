@@ -215,7 +215,7 @@ const I_TetrominoWallKickData = [
     [[-1, 0], [-1, 0], [-1, 0], [+1, 0], [-2, 0]]
 ];
 
-const scene = document.getElementById('scene');
+const scene = document.getElementById('board');
 let squares = document.getElementsByClassName('square');
 
 let row = 0;

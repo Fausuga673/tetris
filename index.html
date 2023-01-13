@@ -6,31 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tetris</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/colors.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="css/colors.css"></head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&display=swap" rel="stylesheet">
 <body>
     <main class="container">
-        <section class="scene" id="scene"></section>
-        <section class="table" id="table">
-            <article class="score" id="score">
-                <h2>SCORE</h2>
-                <p>0</p>
+        <section class="background" id="background"></section>
+        <section class="scene" id="scene">
+            <article class="board" id="board">
             </article>
-            <article class="line" id="line">
-                <h2>LINE</h2>
-                <p>0</p>
+            <article class="stats" id="stats">
+                <fieldset id="next">
+                    <legend>next</legend>
+                </fieldset>
+                <fieldset id="hold">
+                    <legend>hold</legend>
+                </fieldset>
+                <fieldset id="row">
+                    <legend>row</legend>
+                </fieldset>
             </article>
-            <article class="time" id="time">
-                <h2>TIME</h2>
-                <p>0</p>
-            </article>
-            <fieldset class="hold" id="hold">
-                <legend>hold</legend>
-            </fieldset>
-            <fieldset class="next" id="next">
-                <legend>next</legend>
-            </fieldset>
         </section>
     </main>
     <script src="main.js"></script>

@@ -1,71 +1,105 @@
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-family: 'Russo One', sans-serif;
-    color: #ffffff;
-}   
+}
 
 .container {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    background: linear-gradient(35deg, rgb(12, 12, 12) 30%, rgb(0, 0, 0) 70%);
-    animation: backgroundAnimation 30s linear infinite;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    animation: backgroundRotation 10s infinite linear;
+    background: linear-gradient(0deg, #000000 30%, #000e6c);
 }
 
 .scene {
-    width: min(300px, 100vw);
-    height: min(600px, 200vw);
-    overflow: hidden;
-    position: relative;
-    margin-left: auto;
-    border: 1px solid #ffee00;
-    background: linear-gradient(-45deg, rgba(11, 11, 11, 0.5), rgba(30, 30, 30, 0.304));
+    width: min(400px, 100vw);
+    height: min(600px, 100vh);
+    position: absolute;
+    display: flex;
 }
 
-.table {
-    width: min(100px, 50vw);
-    height: min(600px, 200vw);
+.board {
+    width: min(300px, 90vw);
+    height: 100%;
+    display: flex;
     overflow: hidden;
     position: relative;
-    margin-right: auto;
-    margin-left: 1vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+    outline: min(1px, 1vw) solid #ffffff40;
+    z-index: 10;
+}
+
+.board::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background-image: url(../lain.png);
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
 }
 
 .square {
-    width: min(30px, 10vw);
-    height: min(30px, 10vw);
+    z-index: 20;
+    width: min(30px, 9vw);
+    height: min(30px, 9vw);
     position: absolute;
-    top: min(-30px, -10vw);
     border-width: min(5px, 1.5vw);
     border-style: solid;
-    display: grid;
-    place-items: center;
-}
-
-.next, .hold {
-    width: 100%;
-    height: min(110px, 52vw);
-    overflow: hidden;
-    position: relative;
-    border: 1px solid #ffee00;
-    font-size: 20px;
-    margin-left: auto;
-    background: linear-gradient(-45deg, rgba(11, 11, 11, 0.5), rgba(30, 30, 30, 0.304));
+    top: min(-30px, -10vw);
 }
 
 .square::after {
     content: '';
     position: absolute;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(-20deg, #ffffff36, #f1f1f100 70%, #ffffff );
+}
+
+.stats {
+    width: min(100px, 100%);
+    height: 100%;
+    outline: min(1px, 1vw) solid #ffffff40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+fieldset {
+    width: min(90px, 20vw);
+    height: min(90px, 20vw);
+    font-family: 'Inconsolata', monospace;
+    font-size: min(20px, 5vw);
+    color: #409adb;
+    border: 1px solid #ffffff40;
+    background: rgba(0, 0, 0, .7);
+}
+
+legend {
+    margin-left: 5px;
+}
+
+@keyframes backgroundRotation {
+    from {
+        transform: rotate(0deg) scale(5);
+    } to {
+        transform: rotate(360deg) scale(5);
+    }
 }
