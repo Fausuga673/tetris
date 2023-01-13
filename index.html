@@ -7,11 +7,30 @@
     <title>Tetris</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/colors.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <main class="container">
-        <section class="background"></section>
-        <section class="scene" id="scene">
+        <section class="scene" id="scene"></section>
+        <section class="table" id="table">
+            <article class="score" id="score">
+                <h2>SCORE</h2>
+                <p>0</p>
+            </article>
+            <article class="line" id="line">
+                <h2>LINE</h2>
+                <p>0</p>
+            </article>
+            <article class="time" id="time">
+                <h2>TIME</h2>
+                <p>0</p>
+            </article>
+            <fieldset class="hold" id="hold">
+                <legend>hold</legend>
+            </fieldset>
+            <fieldset class="next" id="next">
+                <legend>next</legend>
+            </fieldset>
         </section>
     </main>
     <script src="main.js"></script>

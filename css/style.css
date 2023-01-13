@@ -2,7 +2,9 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
+    font-family: 'Russo One', sans-serif;
+    color: #ffffff;
+}   
 
 .container {
     width: 100%;
@@ -11,24 +13,31 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-}
-
-.background {
-    height: 1000%;
-    width: 1000%;
-    background: rgb(255,101,50);
-    background: linear-gradient(90deg, rgb(0, 0, 0) 30%, rgb(6, 47, 55) 70%);
+    background: linear-gradient(35deg, rgb(12, 12, 12) 30%, rgb(0, 0, 0) 70%);
     animation: backgroundAnimation 30s linear infinite;
 }
 
 .scene {
     width: min(300px, 100vw);
     height: min(600px, 200vw);
-    /* overflow: hidden; */
-    position: absolute;
-    display: flex;
-    box-shadow: 0 0 min(2px, .5vw) rgb(62, 171, 255);
+    overflow: hidden;
+    position: relative;
+    margin-left: auto;
+    border: 1px solid #ffee00;
     background: linear-gradient(-45deg, rgba(11, 11, 11, 0.5), rgba(30, 30, 30, 0.304));
+}
+
+.table {
+    width: min(100px, 50vw);
+    height: min(600px, 200vw);
+    overflow: hidden;
+    position: relative;
+    margin-right: auto;
+    margin-left: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .square {
@@ -42,18 +51,21 @@
     place-items: center;
 }
 
+.next, .hold {
+    width: 100%;
+    height: min(110px, 52vw);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #ffee00;
+    font-size: 20px;
+    margin-left: auto;
+    background: linear-gradient(-45deg, rgba(11, 11, 11, 0.5), rgba(30, 30, 30, 0.304));
+}
+
 .square::after {
     content: '';
     position: absolute;
     width: 80%;
     height: 80%;
     background: linear-gradient(-20deg, #ffffff36, #f1f1f100 70%, #ffffff );
-}
-
-@keyframes backgroundAnimation {
-    from {
-        transform: rotate(0deg) scale(3);
-    } to {
-        transform: rotate(360deg) scale(3);
-    }
 }

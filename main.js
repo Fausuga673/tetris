@@ -21,8 +21,8 @@ let board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
-    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
 const tetriminos = [
@@ -216,6 +216,7 @@ const I_TetrominoWallKickData = [
 ];
 
 const scene = document.getElementById('scene');
+let squares = document.getElementsByClassName('square');
 
 let row = 0;
 let col = 0;
@@ -301,11 +302,7 @@ function superRotationSystem(tetrominoWallKickData) {
 
     tetrominoWallKickData[rotation].every(test => {
 
-        if (occupiedPositions.includes(`${checkRotation[0].row + test[0]}${checkRotation[0].col + test[1]}`) == false &&
-            occupiedPositions.includes(`${checkRotation[1].row + test[0]}${checkRotation[1].col + test[1]}`) == false &&
-            occupiedPositions.includes(`${checkRotation[2].row + test[0]}${checkRotation[2].col + test[1]}`) == false &&
-            occupiedPositions.includes(`${checkRotation[3].row + test[0]}${checkRotation[3].col + test[1]}`) == false &&
-            
+        if (checkRotation.some(check => occupiedPositions.includes(`${check.row + test[0]}${check.col + test[1]}`)) == false &&
             (checkRotation[0].col + test[1] >= 0 && checkRotation[0].col + test[1] <= 9) &&
             (checkRotation[1].col + test[1] >= 0 && checkRotation[1].col + test[1] <= 9) &&
             (checkRotation[2].col + test[1] >= 0 && checkRotation[2].col + test[1] <= 9) &&
@@ -315,7 +312,8 @@ function superRotationSystem(tetrominoWallKickData) {
             (checkRotation[0].row + test[0] >= 0 && checkRotation[0].row + test[0] <= 21) &&
             (checkRotation[1].row + test[0] >= 0 && checkRotation[1].row + test[0] <= 21) &&
             (checkRotation[2].row + test[0] >= 0 && checkRotation[2].row + test[0] <= 21) &&
-            (checkRotation[3].row + test[0] >= 0 && checkRotation[3].row + test[0] <= 21)) {
+            (checkRotation[3].row + test[0] >= 0 && checkRotation[3].row + test[0] <= 21)) 
+        {
 
             row = row + test[0];
             col = col + test[1];
@@ -446,8 +444,8 @@ function controller(e){
     if (e.key == 'a') moveTetrimino('left');
 }
 
-const fall = setInterval(()=> {
+/* const fall = setInterval(()=> {
     moveTetrimino('fall');
-}, 300);
+}, 300); */
 
 window.addEventListener('keydown', controller);

@@ -11,7 +11,7 @@
     border-left-color: #bfa900;
     border-right-color: #e3c51e;
     border-bottom-color: #80761e;
-    background: #ffe418;
+    background: #ffee00;
 }
 
 .c3 {
@@ -19,7 +19,7 @@
     border-left-color: #23bf00;
     border-right-color: #25e31e;
     border-bottom-color: #45801e;
-    background: #00f100;
+    background: #00d800;
 }
 
 .c4 {
@@ -27,7 +27,7 @@
     border-left-color: #00a6bf;
     border-right-color: #1ec5e3;
     border-bottom-color: #1e6180;
-    background: #18d8ff;
+    background: #18d5ff;
 }
 
 .c5 {
@@ -52,4 +52,12 @@
     border-right-color: #e31ee0;
     border-bottom-color: #7b1e80;
     background: #ff18ba;
+}
+
+.gameover {
+    border-top-color: #ffffff;
+    border-left-color: #848484;
+    border-right-color: #bebebe;
+    border-bottom-color: #535353;
+    background: #cacaca;
 }
