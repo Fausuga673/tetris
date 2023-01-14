@@ -238,7 +238,9 @@ let counter = 0;
 let lastRow = 0;
 let checkRotation = [];
 
-const sufflePieces = () => pieces = pieces.sort(function() {return Math.random() - 0.5});
+const sufflePieces = () => {
+    pieces = pieces.sort(function() {return Math.random() - 0.5});
+}
 
 sufflePieces();
 
@@ -266,12 +268,13 @@ function genereteTetrimino(){
     color = Math.floor(Math.random() * 7 ) + 1;
     // devuelve número del 0 al 7
 
-    if (index > 6) {
+    if (index+1 >= 7) {
         index = 0;
         sufflePieces();
     }
 
     next.innerHTML = '';
+    selected = pieces[index];
 
     Object.keys(tetriminos[pieces[index+1]][0]).forEach(row2 => {
         console.log("");
@@ -288,8 +291,6 @@ function genereteTetrimino(){
             }
         })
     });
-
-    selected = pieces[index];
 
     // se identifican las posiciones ocupadas antes de crear un nuevo tetrimino
     for (let row = 0; row < board.length; row++) {
