@@ -282,7 +282,7 @@ function genereteTetrimino(){
             if (tetriminos[pieces[index+1]][0][row2][col2] != 0) {
                 
                 let minisquare = document.createElement('div');
-                minisquare.setAttribute('class', `minisquare gameover`);
+                minisquare.setAttribute('class', `minisquare c0`);
                 next.appendChild(minisquare);
 
                 minisquare.style.top = (minisquare.offsetHeight * parseInt(row2)) + 'px';

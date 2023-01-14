@@ -1,3 +1,11 @@
+.c0 {
+    border-top-color: #ffffff;
+    border-left-color: #848484;
+    border-right-color: #bebebe;
+    border-bottom-color: #535353;
+    background: #cacaca;
+}
+
 .c1 {
     border-top-color: #ff8091;
     border-left-color: #bf0019;
@@ -52,12 +60,4 @@
     border-right-color: #e31ee0;
     border-bottom-color: #7b1e80;
     background: #ff18ba;
-}
-
-.gameover {
-    border-top-color: #ffffff;
-    border-left-color: #848484;
-    border-right-color: #bebebe;
-    border-bottom-color: #535353;
-    background: #cacaca;
 }
