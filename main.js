@@ -216,12 +216,14 @@ const I_TetrominoWallKickData = [
 ];
 
 const scene = document.getElementById('board');
+const score = document.getElementById('score');
 const next = document.getElementById('next');
-const holdTetro = document.getElementById('hold');
+const hold = document.getElementById('hold');
 
 let row = 0;
 let col = 0;
 let color = 1;
+let index = 0;
 let selected = 0;
 let rotation = 0;
 let positions = [];
@@ -231,6 +233,9 @@ let lastRotation = 0;
 let counter = 0;
 let lastRow = 0;
 let checkRotation = [];
+
+let canBeHold = true;
+let holdedTetromino = 0;
 
 let firstBag = [0, 1, 2, 3, 4, 5, 6];
 let secondBag = [];
@@ -253,6 +258,34 @@ function getTetrimino() {
     });
 }
 
+function identifyOccupiedPositions() {
+    // se identifican las posiciones ocupadas antes de crear un nuevo tetrimino
+    for (let row = 0; row < board.length; row++) {
+        Object.keys(board[row]).forEach(col =>{
+            if (board[row][col] != 0) {
+                occupiedPositions.push(`${row + col}`);
+            }
+        });
+    }
+}
+
+function addPoint() {
+
+    occupiedPositions = [];
+    
+    Object.keys(board).forEach(boardRow => {
+        if (board[boardRow].indexOf(0) == -1) {
+
+            score.innerHTML = parseInt(score.textContent) + 1;
+
+            board.splice(boardRow, 1);
+            board.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+        }
+    });
+    
+    identifyOccupiedPositions();
+}
+
 function selectPiece() {
     if (firstBag.length == 2) {
         // toma el primer elemento de "firstBag"
@@ -273,6 +306,57 @@ function selectPiece() {
     }
 }
 
+function holdTetromino() {
+
+    if (canBeHold == true) {
+
+        if (hold.childNodes.length < 0) {
+            console.log(firstBag);
+
+            canBeHold = false;
+            holdedTetromino = selected;
+
+            console.log(firstBag);
+        } else {
+            console.log(firstBag);
+
+            canBeHold = false;
+            firstBag[0] = holdedTetromino;
+            holdedTetromino = selected;
+
+            console.log(firstBag);
+        }
+        
+        scene.innerHTML = '';
+        hold.innerHTML = '';
+        
+        positions.forEach(e => board[e.row][e.col] = 0);
+        row = 0;
+        rotation = 0;
+        counter = 0;
+        positions = [];
+        genereteTetrimino();
+        drawTetrimino(); 
+        
+        // dibujamos el tetrimino que guardamos en "hold"
+        Object.keys(tetriminos[holdedTetromino][0]).forEach(row2 => {
+            Object.keys(tetriminos[holdedTetromino][0][row2]).forEach(col2 => {
+                if (tetriminos[holdedTetromino][0][row2][col2] != 0) {
+                    
+                    let minisquare = document.createElement('div');
+                    minisquare.setAttribute('class', `minisquare c0`);
+                    hold.appendChild(minisquare);
+
+                    minisquare.style.top = (minisquare.offsetHeight * parseInt(row2)) + 'px';
+                    minisquare.style.left = (minisquare.offsetWidth * parseInt(col2)) + 'px';
+
+                }
+            })
+        });
+    }
+
+}
+
 function genereteTetrimino(){
 
     // devuelve número del 0 al 6
@@ -282,16 +366,7 @@ function genereteTetrimino(){
 
     next.innerHTML = '';
     selectPiece();
-
-    // se identifican las posiciones ocupadas antes de crear un nuevo tetrimino
-    for (let row = 0; row < board.length; row++) {
-        Object.keys(board[row]).forEach(col =>{
-            if (board[row][col] != 0) {
-                occupiedPositions.push(`${row + col}`);
-            }
-        });
-    }
-
+    identifyOccupiedPositions();
     getTetrimino();
 }
 
@@ -403,14 +478,16 @@ function moveTetrimino(instruction){
         if ((positionsRow.includes(bottomEdgeOfTheBoard) == false) && (bottom.some(elem => occupiedPositions.includes(elem)) == false)) {
             row++;
         } else {
+            addPoint();
+            
             canBeHold = true;
-
             row = 0;
             rotation = 0;
             counter = 0;
             positions = [];
             genereteTetrimino();
             drawTetrimino();
+
         }
     }
 
@@ -477,6 +554,7 @@ function controller(e){
     if (e.key == 's') moveTetrimino('fall');;
     if (e.key == 'd') moveTetrimino('right');
     if (e.key == 'a') moveTetrimino('left');
+    if (e.key == 'h') holdTetromino();
 }
 
 /* const fall = setInterval(()=> {
