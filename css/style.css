@@ -19,7 +19,7 @@
     height: 100%;
     position: absolute;
     animation: backgroundRotation 10s infinite linear;
-    background: linear-gradient(0deg, #000000 30%, #000e6c);
+    background: linear-gradient(0deg, #000000 30%, #0016a6);
 }
 
 .scene {
@@ -47,7 +47,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.2;
+    opacity: 0.3;
     background-image: url(../lain.png);
     background-repeat: no-repeat;
     background-position: 50% 0;
@@ -97,7 +97,7 @@ legend {
     margin-left: 5px;
 }
 
-.next {
+.next, .hold {
     width: min(60px, 16vw);
     height: min(30px, 8vw);
     position: absolute;

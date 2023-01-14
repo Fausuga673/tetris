@@ -217,17 +217,11 @@ const I_TetrominoWallKickData = [
 
 const scene = document.getElementById('board');
 const next = document.getElementById('next');
-let squares = document.getElementsByClassName('square');
-
-let pieces = [0, 1, 2, 3, 4, 5, 6];
-
-let nextPiece = [];
-let hold = [];
+const holdTetro = document.getElementById('hold');
 
 let row = 0;
 let col = 0;
 let color = 1;
-let index = 0;
 let selected = 0;
 let rotation = 0;
 let positions = [];
@@ -238,11 +232,10 @@ let counter = 0;
 let lastRow = 0;
 let checkRotation = [];
 
-const sufflePieces = () => {
-    pieces = pieces.sort(function() {return Math.random() - 0.5});
-}
+let firstBag = [0, 1, 2, 3, 4, 5, 6];
+let secondBag = [];
 
-sufflePieces();
+firstBag = firstBag.sort(function() {return Math.random() - 0.5});
 
 function getTetrimino() {
     Object.values(tetriminos[selected][rotation]).forEach(tetriminoRow => {
@@ -260,37 +253,35 @@ function getTetrimino() {
     });
 }
 
+function selectPiece() {
+    if (firstBag.length == 2) {
+        // toma el primer elemento de "firstBag"
+        selected = firstBag.shift();
+        // este mismo elemento es insertado en "secondbag"
+        secondBag.push(selected);
+        secondBag = secondBag.sort(function() {return Math.random() - 0.5});
+
+        secondBag.forEach(piece => {
+            firstBag.push(piece);
+        });
+        secondBag = [];
+    } else {
+        // toma el primer elemento de "firstBag"
+        selected = firstBag.shift();
+        // este mismo elemento es insertado en "secondbag"
+        secondBag.push(selected);
+    }
+}
+
 function genereteTetrimino(){
 
     // devuelve número del 0 al 6
     col = Math.floor(Math.random()*6);
     // devuelve número del 1 al 7
     color = Math.floor(Math.random() * 7 ) + 1;
-    // devuelve número del 0 al 7
-
-    if (index+1 >= 7) {
-        index = 0;
-        sufflePieces();
-    }
 
     next.innerHTML = '';
-    selected = pieces[index];
-
-    Object.keys(tetriminos[pieces[index+1]][0]).forEach(row2 => {
-        console.log("");
-        Object.keys(tetriminos[pieces[index+1]][0][row2]).forEach(col2 => {
-            if (tetriminos[pieces[index+1]][0][row2][col2] != 0) {
-                
-                let minisquare = document.createElement('div');
-                minisquare.setAttribute('class', `minisquare c0`);
-                next.appendChild(minisquare);
-
-                minisquare.style.top = (minisquare.offsetHeight * parseInt(row2)) + 'px';
-                minisquare.style.left = (minisquare.offsetWidth * parseInt(col2)) + 'px';
-
-            }
-        })
-    });
+    selectPiece();
 
     // se identifican las posiciones ocupadas antes de crear un nuevo tetrimino
     for (let row = 0; row < board.length; row++) {
@@ -322,6 +313,22 @@ function drawTetrimino() {
             }
         });
     }
+
+    // dibujamos el tetrimino que sigue
+    Object.keys(tetriminos[firstBag[0]][0]).forEach(row2 => {
+        Object.keys(tetriminos[firstBag[0]][0][row2]).forEach(col2 => {
+            if (tetriminos[firstBag[0]][0][row2][col2] != 0) {
+                
+                let minisquare = document.createElement('div');
+                minisquare.setAttribute('class', `minisquare c0`);
+                next.appendChild(minisquare);
+
+                minisquare.style.top = (minisquare.offsetHeight * parseInt(row2)) + 'px';
+                minisquare.style.left = (minisquare.offsetWidth * parseInt(col2)) + 'px';
+
+            }
+        })
+    });
 }
 
 function superRotationSystem(tetrominoWallKickData) {
@@ -339,17 +346,12 @@ function superRotationSystem(tetrominoWallKickData) {
 
     tetrominoWallKickData[rotation].every(test => {
 
-        if (checkRotation.some(check => occupiedPositions.includes(`${check.row + test[0]}${check.col + test[1]}`)) == false &&
-            (checkRotation[0].col + test[1] >= 0 && checkRotation[0].col + test[1] <= 9) &&
-            (checkRotation[1].col + test[1] >= 0 && checkRotation[1].col + test[1] <= 9) &&
-            (checkRotation[2].col + test[1] >= 0 && checkRotation[2].col + test[1] <= 9) &&
-            (checkRotation[3].col + test[1] >= 0 && checkRotation[3].col + test[1] <= 9) &&
-            
-            
-            (checkRotation[0].row + test[0] >= 0 && checkRotation[0].row + test[0] <= 21) &&
-            (checkRotation[1].row + test[0] >= 0 && checkRotation[1].row + test[0] <= 21) &&
-            (checkRotation[2].row + test[0] >= 0 && checkRotation[2].row + test[0] <= 21) &&
-            (checkRotation[3].row + test[0] >= 0 && checkRotation[3].row + test[0] <= 21)) 
+        let checkRotationRow = [checkRotation[0].row + test[0], checkRotation[1].row + test[0], checkRotation[2].row + test[0], checkRotation[3].row + test[0]];
+        let checkRotationCol = [checkRotation[0].col + test[1], checkRotation[1].col + test[1], checkRotation[2].col + test[1], checkRotation[3].col + test[1]];
+
+        if ((checkRotation.some(check => occupiedPositions.includes(`${check.row + test[0]}${check.col + test[1]}`)) == false) &&
+            (checkRotationRow.includes(-1) == false && checkRotationRow.includes(22) == false) &&
+            (checkRotationCol.includes(-1) == false && checkRotationCol.includes(10) == false)) 
         {
 
             row = row + test[0];
@@ -368,9 +370,8 @@ function superRotationSystem(tetrominoWallKickData) {
       
     });
 
-    if (counter >= 5) {
-        rotation = lastRotation;
-    }
+    if (counter >= 5) rotation = lastRotation;
+
 
 }
 
@@ -399,28 +400,24 @@ function moveTetrimino(instruction){
     let positionsCol = [positions[0].col, positions[1].col, positions[2].col, positions[3].col];
 
     if (instruction == 'fall') {
-        if ((positionsRow.includes(bottomEdgeOfTheBoard) == false) && 
-            (bottom.some(elem => occupiedPositions.includes(elem)) == false)) 
-            {row++;} 
-        else {
-                index++;
-                row = 0;
-                rotation = 0;
-                counter = 0;
-                positions = [];
-                genereteTetrimino();
-                drawTetrimino();
-            }
+        if ((positionsRow.includes(bottomEdgeOfTheBoard) == false) && (bottom.some(elem => occupiedPositions.includes(elem)) == false)) {
+            row++;
+        } else {
+            canBeHold = true;
+
+            row = 0;
+            rotation = 0;
+            counter = 0;
+            positions = [];
+            genereteTetrimino();
+            drawTetrimino();
+        }
     }
 
-    if ((instruction == 'right') && 
-        (positionsCol.includes(rightEdgeOfTheBoard) == false) && 
-        (right.some(elem => occupiedPositions.includes(elem)) == false)) 
+    if ((instruction == 'right') && (positionsCol.includes(rightEdgeOfTheBoard) == false) && (right.some(elem => occupiedPositions.includes(elem)) == false)) 
         {col++;} 
     
-    if ((instruction == 'left') && 
-        (positionsCol.includes(leftEdgeOfTheBoard) == false) && 
-        (left.some(elem => occupiedPositions.includes(elem)) == false)) 
+    if ((instruction == 'left') && (positionsCol.includes(leftEdgeOfTheBoard) == false) && (left.some(elem => occupiedPositions.includes(elem)) == false)) 
         {col--;}
 
     if (instruction == 'rotateR') {
