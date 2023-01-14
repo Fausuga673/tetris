@@ -47,7 +47,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.2;
+    opacity: .3;
     background-image: url(../lain.png);
     background-repeat: no-repeat;
     background-position: 50% 0;
@@ -98,18 +98,17 @@ legend {
 }
 
 .next {
-    width: min(60px, 10vw);
-    height: min(30px, 5vw);
+    width: min(60px, 16vw);
+    height: min(30px, 8vw);
     position: absolute;
-    left: 0;
+    left: 5px;
     right: 0;
-    top: min(15px, 2.5vw);
-    margin: auto;
+    top: min(15px, 4vw);
 }
 
 .minisquare {
-    width: min(15px, 2.5vw);
-    height: min(15px, 2.5vw);
+    width: min(20px, 4vw);
+    height: min(20px, 4vw);
     position: absolute;
     border-width: min(2px, 1vw);
     background: rgb(189, 189, 189);
