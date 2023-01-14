@@ -102,24 +102,24 @@ const tetriminos = [
     // O = 3
     [
         [
-            [0, 0, 0, 0],
             [0, 1, 1, 0],
-            [0, 1, 1, 0]
+            [0, 1, 1, 0],
+            [0, 0, 0, 0]
         ],
         [
-            [0, 0, 0, 0],
             [0, 1, 1, 0],
-            [0, 1, 1, 0]
+            [0, 1, 1, 0],
+            [0, 0, 0, 0]
         ],
         [
-            [0, 0, 0, 0],
             [0, 1, 1, 0],
-            [0, 1, 1, 0]
+            [0, 1, 1, 0],
+            [0, 0, 0, 0]
         ],
         [
-            [0, 0, 0, 0],
             [0, 1, 1, 0],
-            [0, 1, 1, 0]
+            [0, 1, 1, 0],
+            [0, 0, 0, 0]
         ]
     ],
     // S = 4
@@ -216,11 +216,18 @@ const I_TetrominoWallKickData = [
 ];
 
 const scene = document.getElementById('board');
+const next = document.getElementById('next');
 let squares = document.getElementsByClassName('square');
+
+let pieces = [0, 1, 2, 3, 4, 5, 6];
+
+let nextPiece = [];
+let hold = [];
 
 let row = 0;
 let col = 0;
 let color = 1;
+let index = 0;
 let selected = 0;
 let rotation = 0;
 let positions = [];
@@ -230,6 +237,10 @@ let lastRotation = 0;
 let counter = 0;
 let lastRow = 0;
 let checkRotation = [];
+
+const sufflePieces = () => pieces = pieces.sort(function() {return Math.random() - 0.5});
+
+sufflePieces();
 
 function getTetrimino() {
     Object.values(tetriminos[selected][rotation]).forEach(tetriminoRow => {
@@ -248,12 +259,37 @@ function getTetrimino() {
 }
 
 function genereteTetrimino(){
+
     // devuelve número del 0 al 6
     col = Math.floor(Math.random()*6);
     // devuelve número del 1 al 7
     color = Math.floor(Math.random() * 7 ) + 1;
     // devuelve número del 0 al 7
-    selected = Math.floor(Math.random() * 6 );
+
+    if (index > 6) {
+        index = 0;
+        sufflePieces();
+    }
+
+    next.innerHTML = '';
+
+    Object.keys(tetriminos[pieces[index+1]][0]).forEach(row2 => {
+        console.log("");
+        Object.keys(tetriminos[pieces[index+1]][0][row2]).forEach(col2 => {
+            if (tetriminos[pieces[index+1]][0][row2][col2] != 0) {
+                
+                let minisquare = document.createElement('div');
+                minisquare.setAttribute('class', `minisquare`);
+                next.appendChild(minisquare);
+
+                minisquare.style.top = (minisquare.offsetHeight * parseInt(row2)) + 'px';
+                minisquare.style.left = (minisquare.offsetWidth * parseInt(col2)) + 'px';
+
+            }
+        })
+    });
+
+    selected = pieces[index];
 
     // se identifican las posiciones ocupadas antes de crear un nuevo tetrimino
     for (let row = 0; row < board.length; row++) {
@@ -366,6 +402,7 @@ function moveTetrimino(instruction){
             (bottom.some(elem => occupiedPositions.includes(elem)) == false)) 
             {row++;} 
         else {
+                index++;
                 row = 0;
                 rotation = 0;
                 counter = 0;

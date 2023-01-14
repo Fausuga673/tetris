@@ -90,10 +90,28 @@ fieldset {
     color: #409adb;
     border: 1px solid #ffffff40;
     background: rgba(0, 0, 0, .7);
+    position: relative;
 }
 
 legend {
     margin-left: 5px;
+}
+
+.next {
+    width: min(60px, 10vw);
+    height: min(30px, 5vw);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: min(15px, 2.5vw);
+    margin: auto;
+}
+
+.minisquare {
+    width: min(15px, 2.5vw);
+    height: min(15px, 2.5vw);
+    background: linear-gradient(45deg, #164b70, #409adb);
+    position: absolute;
 }
 
 @keyframes backgroundRotation {
