@@ -216,6 +216,8 @@ const I_TetrominoWallKickData = [
 ];
 
 const scene = document.getElementById('board');
+const message = document.getElementById('gameover');
+const button = document.getElementById('playagain');
 const score = document.getElementById('score');
 const next = document.getElementById('next');
 const hold = document.getElementById('hold');
@@ -284,6 +286,23 @@ function addPoint() {
     });
     
     identifyOccupiedPositions();
+}
+
+function gameOver() {
+    board.every((boardRow, index) => {
+        if (index == 9) {
+            message.style.display = 'flex';
+            scene.append(message);
+            clearInterval(fall);
+            window.removeEventListener('keyup', controller);
+            return false;
+        }
+
+        if (boardRow.some(boardCol => boardCol != 0 )) {
+            console.log(index);
+            return true;
+        }
+    })
 }
 
 function selectPiece() {
@@ -464,7 +483,10 @@ function moveTetrimino(instruction){
     if (instruction == 'fall') {
         if ((positionsRow.includes(bottomEdgeOfTheBoard) == false) && (bottom.some(elem => occupiedPositions.includes(elem)) == false)) {
             row++;
+            
+            scene.innerHTML = '';
         } else {
+
             addPoint();
             
             canBeHold = true;
@@ -474,15 +496,26 @@ function moveTetrimino(instruction){
             positions = [];
             genereteTetrimino();
             drawTetrimino();
+            
+            scene.innerHTML = '';
+            gameOver();
 
         }
     }
 
     if ((instruction == 'right') && (positionsCol.includes(rightEdgeOfTheBoard) == false) && (right.some(elem => occupiedPositions.includes(elem)) == false)) 
-        {col++;} 
+        {
+            col++;
+            
+            scene.innerHTML = '';
+        } 
     
     if ((instruction == 'left') && (positionsCol.includes(leftEdgeOfTheBoard) == false) && (left.some(elem => occupiedPositions.includes(elem)) == false)) 
-        {col--;}
+        {
+            col--;
+            
+            scene.innerHTML = '';
+        }
 
     if (instruction == 'rotateR') {
 
@@ -501,6 +534,9 @@ function moveTetrimino(instruction){
             else superRotationSystem(JLSTZ_TetrominoWallKickData);
 
         }
+
+        
+        scene.innerHTML = '';
 
     }
 
@@ -522,12 +558,14 @@ function moveTetrimino(instruction){
 
         }
 
+        
+        scene.innerHTML = '';
+
     }
 
     positions.forEach(e => board[e.row][e.col] = 0); 
     positions=[];
     checkRotation = [];
-    scene.innerHTML = '';
     
     row -= tetriminos[selected][rotation].length;
 
@@ -544,8 +582,11 @@ function controller(e){
     if (e.key == 'h') holdTetromino();
 }
 
-/* const fall = setInterval(()=> {
+const fall = setInterval(()=> {
     moveTetrimino('fall');
-}, 300); */
+}, 300);
 
-window.addEventListener('keydown', controller);
+button.addEventListener('click', ()=> {
+    location.reload();
+})
+window.addEventListener('keyup', controller);

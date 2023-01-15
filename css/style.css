@@ -29,14 +29,56 @@
     display: flex;
 }
 
-.board {
+.board{
     width: min(300px, 90vw);
     height: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     position: relative;
     outline: min(1px, 1vw) solid #ffffff40;
     z-index: 10;
+}
+
+.gameover {
+    position: absolute;
+    width: min(200px, 50vw);
+    height: min(100px, 40vw);
+    font-family: 'Inconsolata', monospace;
+    font-size: min(25px, 5vw);
+    color: #ff0000;
+    text-shadow: 1px 1px 1px black;
+    border: 1px solid #ffffff81;
+    background: rgba(0, 0, 0, .5);
+    display: none;
+    flex-direction: column;
+    z-index: 30;
+}
+
+.gameover span {
+    background: rgb(114, 13, 13);
+}
+
+.gameover p {
+    background: rgb(38, 20, 20);
+}
+
+.gameover button {
+    width: 60%;
+    height: 40%;
+    margin: auto;
+    background: rgb(153, 153, 153);
+    padding: .5vw 0;
+    font-size: min(10px, 3vw);
+    font-family: 'Press Start 2P', cursive;
+    border-width: min(4px, 1vw);
+    border-style: outset;
+    border-right-color: #9a9a9a;
+    border-bottom-color: #9a9a9a;
+    border-left-color: #e8e8e8;
+    border-top-color: #e8e8e8;
+    cursor: pointer;
 }
 
 .scene::before {
@@ -87,7 +129,7 @@ fieldset {
     height: min(90px, 20vw);
     font-family: 'Inconsolata', monospace;
     font-size: min(20px, 5vw);
-    color: #ffffff;
+    color: #dddddd;
     border: 1px solid #ffffff40;
     background: rgba(0, 0, 0, .2);
     position: relative;
