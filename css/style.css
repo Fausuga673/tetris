@@ -33,7 +33,7 @@
     width: min(300px, 90vw);
     height: 100%;
     display: flex;
-    /* overflow: hidden; */
+    overflow: hidden;
     position: relative;
     outline: min(1px, 1vw) solid #ffffff40;
     z-index: 10;

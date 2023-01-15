@@ -238,7 +238,7 @@ let canBeHold = true;
 let holdedTetromino = 0;
 
 let firstBag = [0, 1, 2, 3, 4, 5, 6];
-let secondBag = [];
+let secondBag = [0, 1, 2, 3, 4, 5, 6];
 
 firstBag = firstBag.sort(function() {return Math.random() - 0.5});
 
@@ -290,19 +290,14 @@ function selectPiece() {
     if (firstBag.length == 2) {
         // toma el primer elemento de "firstBag"
         selected = firstBag.shift();
-        // este mismo elemento es insertado en "secondbag"
-        secondBag.push(selected);
-        secondBag = secondBag.sort(function() {return Math.random() - 0.5});
 
+        secondBag = secondBag.sort(function() {return Math.random() - 0.5});
         secondBag.forEach(piece => {
             firstBag.push(piece);
         });
-        secondBag = [];
     } else {
         // toma el primer elemento de "firstBag"
         selected = firstBag.shift();
-        // este mismo elemento es insertado en "secondbag"
-        secondBag.push(selected);
     }
 }
 
@@ -310,21 +305,13 @@ function holdTetromino() {
 
     if (canBeHold == true) {
 
-        if (hold.childNodes.length < 0) {
-            console.log(firstBag);
-
+        if (hold.childNodes.length > 0) {
             canBeHold = false;
+            firstBag.unshift(holdedTetromino);
             holdedTetromino = selected;
-
-            console.log(firstBag);
         } else {
-            console.log(firstBag);
-
             canBeHold = false;
-            firstBag[0] = holdedTetromino;
             holdedTetromino = selected;
-
-            console.log(firstBag);
         }
         
         scene.innerHTML = '';
@@ -336,8 +323,8 @@ function holdTetromino() {
         counter = 0;
         positions = [];
         genereteTetrimino();
-        drawTetrimino(); 
-        
+        drawTetrimino();
+       
         // dibujamos el tetrimino que guardamos en "hold"
         Object.keys(tetriminos[holdedTetromino][0]).forEach(row2 => {
             Object.keys(tetriminos[holdedTetromino][0][row2]).forEach(col2 => {
