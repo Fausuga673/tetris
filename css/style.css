@@ -154,6 +154,33 @@ fieldset {
     backdrop-filter: blur(5px);
 }
 
+.keys {
+    display: grid;
+    justify-content: center;
+    gap: min(5px, 1vw);
+    grid-template-columns: repeat(3, min(25px, 5vw));
+    grid-template-rows: repeat(2, min(25px, 5vw));
+}
+
+.keys div {
+    background: #fbe4a3;
+    height: 100%;
+    width: 100%;
+    color: #000;
+    display: grid;
+    place-items: center;
+    font-size: min(12px, 3vw);
+    font-weight: 800;
+    border-radius: min(5px, 1vw);
+    border-width: min(3px, 1vw);
+    border-bottom-width: min(5px, 1.5vw);
+    border-style: solid;
+    border-top-color: #fff1cd;
+    border-right-color: #bfab74;
+    border-left-color: #bfab74;
+    border-bottom-color: #57481c;
+}
+
 legend {
     margin-left: 5px;
 }
