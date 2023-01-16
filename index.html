@@ -14,8 +14,8 @@
     <main class="container">
         <section class="background" id="background"></section>
         <div class="gameover" id="gameover">
-            <p><span>error:</span> gameover</p>
-
+            <p class="tittle"><span>error:</span> gameover</p>
+            <p class="message"><span>X</span>The board is full.</p>
             <button id="playagain">play again</button>
         </div>
         <section class="scene" id="scene">
@@ -31,12 +31,15 @@
                     <div id="hold" class="hold"></div>
                 </fieldset>
                 <fieldset>
-                    <legend>score</legend>
+                    <legend>row</legend>
                     <p id="score" class="score">0</p>
                 </fieldset>
             </article>
         </section>
     </main>
-    <script src="main.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/tetrominos.js"></script>
+    <script src="js/rotationSystem.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
