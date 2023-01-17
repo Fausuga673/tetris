@@ -336,7 +336,7 @@ function controllerMovil(key) {
 
 const fall = setInterval(()=> {
     moveTetromino('fall');
-}, 300);
+}, 1000);
 
 button.addEventListener('click', ()=> {
     location.reload();
