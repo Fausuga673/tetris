@@ -324,9 +324,9 @@ function controller(e){
     if (e.key == 'h') holdTetromino();
 }
 
-/* const fall = setInterval(()=> {
+const fall = setInterval(()=> {
     moveTetromino('fall');
-}, 300); */
+}, 300);
 
 button.addEventListener('click', ()=> {
     location.reload();
