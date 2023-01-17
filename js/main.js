@@ -78,6 +78,7 @@ function gameOver() {
             message.style.display = 'flex';
             scene.append(message);
             clearInterval(fall);
+            Object.values(keyboard).forEach(e => e.removeEventListener('click', controllerMovil));
             window.removeEventListener('keyup', controller);
             return false;
         }
@@ -324,6 +325,15 @@ function controller(e){
     if (e.key == 'h') holdTetromino();
 }
 
+function controllerMovil(key) {
+    if (key.target.id == 'k') moveTetromino('rotateR');
+    if (key.target.id == 'j') moveTetromino('rotateL');
+    if (key.target.id == 's') moveTetromino('fall');;
+    if (key.target.id == 'd') moveTetromino('right');
+    if (key.target.id == 'a') moveTetromino('left');
+    if (key.target.id == 'h') holdTetromino();
+}
+
 const fall = setInterval(()=> {
     moveTetromino('fall');
 }, 300);
@@ -332,15 +342,6 @@ button.addEventListener('click', ()=> {
     location.reload();
 })
 
-Object.values(keyboard).forEach(e => {
-    e.addEventListener('click', key => {
-        if (key.target.id == 'k') moveTetromino('rotateR');
-        if (key.target.id == 'j') moveTetromino('rotateL');
-        if (key.target.id == 's') moveTetromino('fall');;
-        if (key.target.id == 'd') moveTetromino('right');
-        if (key.target.id == 'a') moveTetromino('left');
-        if (key.target.id == 'h') holdTetromino();
-    })
-})
+Object.values(keyboard).forEach(e => e.addEventListener('click', controllerMovil));
 
 window.addEventListener('keyup', controller);
